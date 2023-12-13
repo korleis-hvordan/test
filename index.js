@@ -3,11 +3,11 @@ const helmet = require('helmet');
 const app = express();
 
 const bodyParser = require('body-parser')
-app.use(bodyParser.json({limit: '50mb'}));       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({limit: '50mb', parameterLimit: 100000, extended: true}));
+app.use(bodyParser.json({ limit: '100mb' }));
+app.use(bodyParser.urlencoded({ limit: '100mb', parameterLimit: 100000, extended: true }));
 
-app.use(express.json());       // to support JSON-encoded bodies
-app.use(express.urlencoded()); // to support URL-encoded bodies
+app.use(express.json());
+app.use(express.urlencoded());
 
 app.use(helmet({
   contentSecurityPolicy: false
@@ -20,7 +20,11 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.post('/test', function(req, res) {
+app.get('/', function(req, res) {
+  res.send('test');
+});
+
+app.post('/', function(req, res) {
   console.log(req.body);
 });
 
